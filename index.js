@@ -6,14 +6,19 @@ const config = require('config');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 Joi.objectId =require('joi-objectid')(Joi);
-const express = require('express');
-const app = express();
 const customers = require('./routes/customers');
 const genres = require('./routes/genres');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const express = require('express');
+const app = express();
+
+process.on('uncaughtException', (ex) => {
+  console.log('WE GOT AN UNCAUGHT EXCEPTION');
+  winston.error(ex.message, ex);
+})
 
 winston.add(new winston.transports.File({filename: 'logfile.log'}));
 winston.add(new winston.transports.MongoDB({
