@@ -4,10 +4,7 @@ const {Genre, validate} = require('../models/genre');
 const express = require('express');
 const router = express.Router();
 
-
-
 router.get('/', async (req, res) => {
-    throw new Error('Could not get genres');
     const genres = await Genre.find().sort('name');
     res.send(genres);
 });
